@@ -1,13 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Header from './components/Header';
-class HelloMessage extends React.Component {
+
+class Timer extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { seconds: 0 };
+    }
+
+    tick() {
+        this.setState(prevState => ({
+            seconds: prevState.seconds + 1
+        }));
+    }
+
+    componentDidMount() {
+        this.interval = setInterval(() => this.tick(), 1000);
+    }
+
+   /* componentWillUnmount() {
+        clearInterval(this.interval);
+    }*/
+
     render() {
         return (
-            <Header title="tejomaydddddddddddddddddddddd">
-
-            </Header>
-        )
+            <div>
+                Seconds: {this.state.seconds}
+            </div>
+        );
     }
 }
+let mountNode = document.getElementById('app');
 
+ReactDOM.render(<Timer />, mountNode);
